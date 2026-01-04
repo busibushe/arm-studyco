@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARM Study Co - Pintar Sejak Dini</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- 1. SETTINGS & VARIABLES --- */
+        :root {
+            /* Palette Ceria namun Soft (ARM Logo Base) */
+            --orange: #FF8C42; 
+            --blue: #4FB0E6; 
+            --green: #8FD694; 
+            --yellow: #FFD93D;
+            --paper: #FFFDF9;
+            --text: #2D3436;
+            --radius: 24px;
+            --blob-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Quicksand', sans-serif; 
+            background-color: var(--paper); 
+            color: var(--text);
+            /* Background Pola Grid Buku Tulis Halus */
+            background-image: 
+                linear-gradient(#E5E5E5 1px, transparent 1px),
+                linear-gradient(90deg, #E5E5E5 1px, transparent 1px);
+            background-size: 40px 40px;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; letter-spacing: 0.5px; }
+        
+        button { cursor: pointer; border: none; outline: none; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        a { text-decoration: none; color: inherit; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; }
+
+        /* --- 2. COMPONENTS --- */
+        
+        /* Tombol Bouncy & Playful */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+            transform: translateY(0);
+        }
+        .btn:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
+        
+        .btn-primary { background: var(--orange); color: white; }
+        .btn-primary:hover { background: #FF7A20; }
+        
+        .btn-whatsapp { background: #25D366; color: white; width: 100%; justify-content: center; }
+
+        .blob-shape {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.1;
+            border-radius: var(--blob-radius);
+        }
+
+        /* --- 3. HEADER & HERO --- */
+        nav {
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .logo-container {
+            background: white;
+            padding: 10px 30px;
+            border-radius: 50px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid #eee;
+        }
+        .logo-img { height: 45px; }
+
+        .hero {
+            padding: 60px 0 100px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero h1 { 
+            font-size: 3rem; 
+            color: var(--text); 
+            line-height: 1.2; 
+            margin-bottom: 20px;
+        }
+        .hero h1 span { color: var(--blue); position: relative; display: inline-block; }
+        .hero h1 span::after {
+            content: '';
+            position: absolute;
+            bottom: 5px; left: 0; width: 100%; height: 12px;
+            background: var(--yellow);
+            z-index: -1;
+            border-radius: 10px;
+            opacity: 0.6;
+        }
+
+        .hero p { font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto 40px; }
+
+        .hero-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        .badge-item {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 1px dashed var(--orange);
+            color: #555;
+        }
+
+        /* --- 4. CATALOG SECTION --- */
+        .catalog-header { text-align: center; margin-bottom: 50px; }
+        .catalog-header h2 { font-size: 2.2rem; margin-bottom: 10px; }
+        
+        /* Custom Toggle Switch for Boy/Girl */
+        .gender-toggle {
+            background: #fff;
+            display: inline-flex;
+            padding: 5px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 2px solid #eee;
+            margin-bottom: 40px;
+        }
+        .toggle-btn {
+            padding: 10px 25px;
+            border-radius: 40px;
+            font-weight: 700;
+            color: #888;
+            font-family: 'Fredoka', sans-serif;
+            background: transparent;
+        }
+        .toggle-btn.active-boy { background: var(--blue); color: white; }
+        .toggle-btn.active-girl { background: #FF9F9F; color: white; }
+        .toggle-btn.active-all { background: var(--yellow); color: var(--text); }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: var(--radius);
+            position: relative;
+            transition: 0.3s;
+            border: 3px solid #f0f0f0;
+        }
+        .product-card:hover {
+            transform: translateY(-10px) rotate(-2deg);
+            border-color: var(--orange);
+            box-shadow: 0 15px 30px rgba(255, 140, 66, 0.2);
+        }
+
+        /* TAPE EFFECT */
+        .tape {
+            position: absolute;
+            top: -10px; left: 50%; transform: translateX(-50%);
+            width: 80px; height: 25px;
+            background: rgba(255,255,255,0.4);
+            border-left: 1px dashed rgba(0,0,0,0.1);
+            border-right: 1px dashed rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 2;
+        }
+
+        .card-image-wrapper {
+            height: 220px;
+            overflow: hidden;
+            border-radius: var(--radius) var(--radius) 0 0;
+            background: #f9f9f9;
+            position: relative;
+        }
+        .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .tag-variant {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.8rem;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .card-content { padding: 20px; }
+        .card-cat { color: #888; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .card-title { font-size: 1.3rem; margin-bottom: 15px; color: var(--text); line-height: 1.3; }
+        
+        .card-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px dashed #eee;
+            padding-top: 15px;
+        }
+        .price { font-size: 1.2rem; font-weight: 800; color: var(--text); }
+        
+        .btn-add {
+            width: 45px; height: 45px;
+            background: var(--green);
+            color: white;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 0 #6FB875;
+        }
+        .btn-add:active { box-shadow: 0 0 0; transform: translateY(4px); }
+
+        /* --- 5. FLOATING CART --- */
+        .cart-float {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            background: var(--text);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex; align-items: center; gap: 15px;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(45, 52, 54, 0.3);
+            cursor: pointer;
+            z-index: 100;
+            transform: scale(0);
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .cart-float.visible { transform: scale(1); }
+        .cart-float i { font-size: 1.2rem; }
+        
+        .cart-badge {
+            background: var(--orange);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* --- 6. MODAL --- */
+        .modal-wrap {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 200;
+            display: none;
+            justify-content: center; align-items: center;
+            opacity: 0; transition: 0.3s;
+        }
+        .modal-wrap.show { display: flex; opacity: 1; }
+        
+        .modal-box {
+            background: white;
+            width: 90%; max-width: 450px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            padding: 30px;
+            border: 2px solid #eee;
+            position: relative;
+        }
+        
+        .cart-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        /* --- MOBILE --- */
+        @media(max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .toggle-btn { padding: 8px 15px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="blob-shape" style="background: var(--blue); width: 300px; height: 300px; top: -50px; left: -100px;"></div>
+    <div class="blob-shape" style="background: var(--yellow); width: 200px; height: 200px; top: 100px; right: -50px;"></div>
+
+    <nav>
+        <div class="logo-container">
+            <img src="images/croparm.png" alt="ARM Logo" class="logo-img">
+            <div>
+                <h4 style="color:var(--orange); line-height:1;">ARM</h4>
+                <small style="color:#888; font-weight:700;">Study Co.</small>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badges">
+                <span class="badge-item"><i class="fas fa-eye-slash"></i> Kurangi Gadget</span>
+                <span class="badge-item"><i class="fas fa-brain"></i> Melatih Motorik</span>
+                <span class="badge-item"><i class="fas fa-smile"></i> Anak Happy</span>
+            </div>
+            <h1>Ubah Waktu Main Jadi <br><span>Momen Belajar Seru!</span></h1>
+            <p>Worksheet aktivitas kreatif yang didesain khusus agar anak tidak merasa sedang belajar. Solusi tepat untuk orang tua cerdas.</p>
+            <button class="btn btn-primary" onclick="scrollToCatalog()">
+                <i class="fas fa-rocket"></i> Pilih Worksheet
+            </button>
+        </div>
+    </section>
+
+    <section class="container" id="catalog">
+        <div class="catalog-header">
+            <h2>Pustaka <span style="color:var(--green)">Aktivitas</span></h2>
+            
+            <div class="gender-toggle">
+                <button class="toggle-btn active-all" onclick="filterData('all', this)">Semua</button>
+                <button class="toggle-btn" onclick="filterData('boy', this)">Cowok 👦</button>
+                <button class="toggle-btn" onclick="filterData('girl', this)">Cewek 👧</button>
+            </div>
+        </div>
+
+        <div class="product-grid" id="gridContainer">
+            </div>
+    </section>
+
+    <div style="height: 100px;"></div>
+
+    <div class="cart-float" id="floatingCart" onclick="toggleModal(true)">
+        <i class="fas fa-shopping-bag"></i>
+        <span>Keranjang</span>
+        <div class="cart-badge" id="cartCount">0</div>
+    </div>
+
+    <div class="modal-wrap" id="cartModal">
+        <div class="modal-box">
+            <button onclick="toggleModal(false)" style="position: absolute; top: 15px; right: 15px; font-size: 1.5rem; background:none; color: #999;">&times;</button>
+            
+            <h3 style="margin-bottom: 20px; font-size: 1.5rem;">Tas Belanja 🎒</h3>
+            
+            <div id="cartList" style="max-height: 300px; overflow-y: auto;">
+                </div>
+            
+            <div style="margin-top: 20px; border-top: 2px solid #eee; padding-top: 15px;">
+                <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 1.2rem; margin-bottom: 15px;">
+                    <span>Total</span>
+                    <span id="cartTotal">Rp 0</span>
+                </div>
+                <button class="btn btn-whatsapp" onclick="sendToWA()">
+                    <i class="fab fa-whatsapp"></i>&nbsp; Pesan via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA & CONFIG ---
+        const NO_WA = "62812345678"; // GANTI NO WA DISINI
+
+        // Gunakan link gambar asli Anda nanti.
+        const products = [
+            { id: 1, name: "Paket Pintar Menulis", type: "boy", price: 35000, cat: "Tracing", img: "https://placehold.co/400x300/4FB0E6/FFF?text=Tracing+Boy" },
+            { id: 2, name: "Paket Pintar Menulis", type: "girl", price: 35000, cat: "Tracing", img: "https://placehold.co/400x300/FF9F9F/FFF?text=Tracing+Girl" },
+            { id: 3, name: "Petualangan Angka", type: "boy", price: 40000, cat: "Matematika", img: "https://placehold.co/400x300/4FB0E6/FFF?text=Math+Boy" },
+            { id: 4, name: "Petualangan Angka", type: "girl", price: 40000, cat: "Matematika", img: "https://placehold.co/400x300/FF9F9F/FFF?text=Math+Girl" },
+            { id: 5, name: "Jago Mewarnai", type: "boy", price: 25000, cat: "Kreativitas", img: "https://placehold.co/400x300/4FB0E6/FFF?text=Color+Boy" },
+            { id: 6, name: "Jago Mewarnai", type: "girl", price: 25000, cat: "Kreativitas", img: "https://placehold.co/400x300/FF9F9F/FFF?text=Color+Girl" }
+        ];
+
+        let cart = [];
+
+        // --- INIT ---
+        window.onload = () => {
+            renderGrid(products);
+        };
+
+        function scrollToCatalog() {
+            document.getElementById('catalog').scrollIntoView({behavior: 'smooth'});
+        }
+
+        // --- RENDER LOGIC ---
+        function renderGrid(data) {
+            const container = document.getElementById('gridContainer');
+            container.innerHTML = '';
+
+            data.forEach(p => {
+                // Styling based on gender
+                let badgeColor = p.type === 'boy' ? '#4FB0E6' : '#FF9F9F';
+                let label = p.type === 'boy' ? 'BOY' : 'GIRL';
+
+                container.innerHTML += `
+                    <div class="product-card">
+                        <div class="tape"></div>
+                        <div class="card-image-wrapper">
+                            <span class="tag-variant" style="background:${badgeColor}">${label}</span>
+                            <img src="${p.img}" alt="${p.name}">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-cat">${p.cat}</span>
+                            <h3 class="card-title">${p.name}</h3>
+                            <div class="card-action">
+                                <span class="price">Rp ${p.price.toLocaleString('id-ID')}</span>
+                                <button class="btn-add" onclick="addToCart(${p.id})">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterData(type, btn) {
+            // Reset button styles
+            document.querySelectorAll('.toggle-btn').forEach(b => {
+                b.className = 'toggle-btn';
+            });
+            
+            // Set active style
+            if(type === 'all') btn.classList.add('active-all');
+            else if(type === 'boy') btn.classList.add('active-boy');
+            else btn.classList.add('active-girl');
+
+            // Filter logic
+            if(type === 'all') renderGrid(products);
+            else renderGrid(products.filter(p => p.type === type));
+        }
+
+        // --- CART LOGIC ---
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const exist = cart.find(c => c.id === id);
+
+            if(exist) exist.qty++;
+            else cart.push({...product, qty: 1});
+
+            updateCartUI();
+            
+            // Feedback Visual
+            const floatBtn = document.getElementById('floatingCart');
+            floatBtn.classList.add('visible');
+            floatBtn.style.transform = "scale(1.2)";
+            setTimeout(() => floatBtn.style.transform = "scale(1)", 200);
+        }
+
+        function updateCartUI() {
+            const totalQty = cart.reduce((a,b) => a + b.qty, 0);
+            document.getElementById('cartCount').innerText = totalQty;
+            
+            if(totalQty > 0) document.getElementById('floatingCart').classList.add('visible');
+        }
+
+        function toggleModal(show) {
+            const modal = document.getElementById('cartModal');
+            const list = document.getElementById('cartList');
+            const totalEl = document.getElementById('cartTotal');
+
+            if(show) {
+                modal.classList.add('show');
+                
+                // Render List
+                if(cart.length === 0) {
+                    list.innerHTML = "<p style='text-align:center; color:#999; margin-top:20px;'>Belum ada worksheet yang dipilih nih bun.</p>";
+                    totalEl.innerText = "Rp 0";
+                    return;
+                }
+
+                let html = '';
+                let grandTotal = 0;
+                
+                cart.forEach((item, idx) => {
+                    let sub = item.price * item.qty;
+                    grandTotal += sub;
+                    html += `
+                        <div class="cart-item">
+                            <div>
+                                <h4 style="font-size:1rem; margin-bottom:5px;">${item.name} (${item.type === 'boy'?'👦':'👧'})</h4>
+                                <small style="color:#888;">${item.qty} x Rp ${item.price.toLocaleString('id-ID')}</small>
+                            </div>
+                            <button onclick="removeItem(${item.id})" style="color:#ff6b6b; background:none; font-weight:bold;">Hapus</button>
+                        </div>
+                    `;
+                });
+                
+                list.innerHTML = html;
+                totalEl.innerText = "Rp " + grandTotal.toLocaleString('id-ID');
+
+            } else {
+                modal.classList.remove('show');
+            }
+        }
+
+        function removeItem(id) {
+            cart = cart.filter(c => c.id !== id);
+            updateCartUI();
+            toggleModal(true); // Re-render modal
+            if(cart.length === 0) document.getElementById('floatingCart').classList.remove('visible');
+        }
+
+        function sendToWA() {
+            if(cart.length === 0) return;
+
+            let msg = "Halo Admin ARM Study Co! Saya mau pesan worksheet ini untuk si kecil:%0A%0A";
+            let total = 0;
+
+            cart.forEach((item, i) => {
+                let sub = item.price * item.qty;
+                total += sub;
+                msg += `${i+1}. ${item.name} (${item.type}) - ${item.qty} pcs%0A`;
+            });
+
+            msg += `%0A*Total: Rp ${total.toLocaleString('id-ID')}*`;
+            msg += `%0AMohon info pembayarannya ya. Terima Kasih!`;
+
+            window.open(`https://wa.me/${NO_WA}?text=${msg}`, '_blank');
+        }
+    </script>
+</body>
+</html>
