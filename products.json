@@ -1,0 +1,56 @@
+[
+  {
+    "id": 101,
+    "name": "Roblox Adventure Coloring",
+    "category": "coloring",
+    "theme": "roblox",
+    "price": 15000,
+    "img": "https://placehold.co/400x300/E74C3C/FFF?text=Roblox+Coloring",
+    "desc": "50 Halaman mewarnai karakter Roblox yang seru untuk melatih kreativitas anak."
+  },
+  {
+    "id": 102,
+    "name": "Roblox Number Tracing",
+    "category": "tracing",
+    "theme": "roblox",
+    "price": 20000,
+    "img": "https://placehold.co/400x300/C0392B/FFF?text=Roblox+Tracing",
+    "desc": "Belajar menulis angka 1-20 ditemani karakter Roblox. Cocok untuk usia 4-6 tahun."
+  },
+  {
+    "id": 201,
+    "name": "Frozen Magic Coloring",
+    "category": "coloring",
+    "theme": "frozen",
+    "price": 15000,
+    "img": "https://placehold.co/400x300/3498DB/FFF?text=Frozen+Coloring",
+    "desc": "Mewarnai Elsa, Anna, dan Olaf. Halaman tebal dan garis jelas."
+  },
+  {
+    "id": 202,
+    "name": "Frozen Letter Tracing",
+    "category": "tracing",
+    "theme": "frozen",
+    "price": 20000,
+    "img": "https://placehold.co/400x300/2980B9/FFF?text=Frozen+Tracing",
+    "desc": "Latihan menulis huruf A-Z dengan tema istana es Frozen."
+  },
+  {
+    "id": 301,
+    "name": "Cerita Nusantara Coloring",
+    "category": "coloring",
+    "theme": "nusantara",
+    "price": 12000,
+    "img": "https://placehold.co/400x300/F1C40F/333?text=Nusantara+Coloring",
+    "desc": "Mengenal budaya Indonesia lewat mewarnai baju adat dan rumah adat."
+  },
+  {
+    "id": 302,
+    "name": "Cerita Nusantara Tracing",
+    "category": "tracing",
+    "theme": "nusantara",
+    "price": 18000,
+    "img": "https://placehold.co/400x300/F39C12/333?text=Nusantara+Tracing",
+    "desc": "Tracing garis putus-putus membentuk pola batik dan wayang sederhana."
+  }
+]
