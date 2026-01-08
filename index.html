@@ -27,6 +27,7 @@
             font-family: 'Quicksand', sans-serif; 
             background-color: var(--paper); 
             color: var(--text);
+            /* Pola Grid Halus */
             background-image: 
                 linear-gradient(#E5E5E5 1px, transparent 1px),
                 linear-gradient(90deg, #E5E5E5 1px, transparent 1px);
@@ -41,26 +42,7 @@
         
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; }
 
-        /* --- 2. COMPONENTS --- */
-        .btn {
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 14px 28px; border-radius: 50px;
-            font-weight: 700; font-size: 1.1rem;
-            box-shadow: 0 6px 0 rgba(0,0,0,0.1);
-            transform: translateY(0);
-        }
-        .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,0.1); }
-        
-        .btn-primary { background: var(--orange); color: white; }
-        .btn-custom { background: var(--purple); color: white; box-shadow: 0 6px 0 #8844d1; }
-        .btn-whatsapp { background: #25D366; color: white; width: 100%; justify-content: center; box-shadow: 0 4px 0 #1da851; }
-
-        .blob-shape {
-            position: absolute; z-index: -1; opacity: 0.1;
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        }
-
-        /* --- 3. HERO --- */
+        /* --- 2. HERO SECTION --- */
         nav { padding: 15px 0; display: flex; justify-content: center; }
         .logo-container {
             background: white; padding: 8px 25px; border-radius: 50px;
@@ -69,7 +51,7 @@
         }
         .logo-img { height: 35px; }
 
-        .hero { padding: 40px 0 60px; text-align: center; }
+        .hero { padding: 40px 0 50px; text-align: center; }
         .hero h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 15px; }
         .hero h1 span { color: var(--blue); position: relative; }
         .hero h1 span::after {
@@ -80,11 +62,12 @@
 
         .hero-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
         .badge-item {
-            background: white; padding: 6px 12px; border-radius: 15px; font-size: 0.85rem;
+            background: white; padding: 6px 15px; border-radius: 15px; font-size: 0.9rem;
             font-weight: 600; border: 1px dashed var(--orange); color: #555;
+            display: inline-flex; align-items: center; gap: 5px;
         }
 
-        /* --- 4. CATALOG & CARDS --- */
+        /* --- 3. CATALOG & CARDS --- */
         .catalog-header { text-align: center; margin-bottom: 30px; }
         
         .cat-toggle {
@@ -99,29 +82,32 @@
 
         .product-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px;
+            padding-bottom: 120px; /* Jarak aman agar item terakhir tidak tertutup cart */
         }
 
-        /* CARD STYLE - FIXED ANIMATION */
+        /* CARD STYLE & ANIMATIONS */
         .product-card {
             background: white; 
             border-radius: var(--radius); 
             position: relative;
-            /* Pastikan transition aktif di class utama */
+            /* Transisi Halus untuk Desktop */
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             border: 3px solid #f0f0f0;
             cursor: pointer;
-            top: 0; /* Base position */
+            top: 0;
         }
         
-        /* HOVER EFFECT (Desktop) */
-        .product-card:hover {
-            transform: translateY(-10px) rotate(-1deg); /* Efek naik & miring dikit */
-            border-color: var(--orange);
-            box-shadow: 0 15px 30px rgba(255, 140, 66, 0.25);
-            z-index: 2;
+        /* HOVER EFFECT (Desktop Only) */
+        @media (min-width: 769px) {
+            .product-card:hover {
+                transform: translateY(-10px) rotate(-1deg);
+                border-color: var(--orange);
+                box-shadow: 0 15px 30px rgba(255, 140, 66, 0.25);
+                z-index: 2;
+            }
         }
 
-        /* ACTIVE EFFECT (Mobile Tap) */
+        /* TACTILE FEEDBACK (Mobile Active) */
         .product-card:active { 
             transform: scale(0.96); 
             border-color: var(--orange); 
@@ -141,11 +127,13 @@
             background: #f9f9f9; position: relative;
         }
         .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
         .tag-variant {
             position: absolute; bottom: 8px; right: 8px; padding: 4px 10px;
             border-radius: 10px; color: white; font-weight: bold; font-size: 0.75rem;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+        /* Dynamic Tag Colors */
         .tag-roblox { background: #E74C3C; }
         .tag-frozen { background: #3498DB; }
         .tag-nusantara { background: #F1C40F; color: #333 !important; }
@@ -162,11 +150,26 @@
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
             font-size: 1rem; box-shadow: 0 2px 0 #6FB875;
         }
+        /* Prevent hover conflict on add button */
         .btn-add-mini:hover { transform: scale(1.1); }
+
+        /* --- 4. BUTTONS --- */
+        .btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 14px 28px; border-radius: 50px;
+            font-weight: 700; font-size: 1.1rem;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.1);
+            transform: translateY(0);
+        }
+        .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,0.1); }
+        
+        .btn-primary { background: var(--orange); color: white; }
+        .btn-custom { background: var(--purple); color: white; box-shadow: 0 6px 0 #8844d1; }
+        .btn-whatsapp { background: #25D366; color: white; width: 100%; justify-content: center; box-shadow: 0 4px 0 #1da851; }
 
         /* --- 5. CUSTOM REQUEST SECTION --- */
         .custom-section {
-            margin: 60px 0 100px;
+            margin: 0px 0 120px; /* Bottom margin for spacing */
             background: #F3E5F5;
             border-radius: 30px;
             padding: 30px;
@@ -231,7 +234,10 @@
         @media (max-width: 480px) {
             .hero { padding: 30px 0 40px; }
             .hero h1 { font-size: 2.2rem; }
-            .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .hero-badges { gap: 8px; }
+            .badge-item { padding: 5px 10px; font-size: 0.8rem; }
+
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; padding-bottom: 100px; }
             .product-card { border-width: 2px; }
             .card-image-wrapper { height: 115px; }
             .card-content { padding: 10px; }
@@ -242,6 +248,8 @@
             .price { font-size: 0.9rem; }
             .tape { width: 40px; height: 15px; top: -6px; }
             .cart-float { bottom: 20px; right: 20px; font-size: 0.85rem; padding: 10px 16px; }
+            
+            .custom-section { padding: 20px 15px; margin-bottom: 80px; }
         }
     </style>
 </head>
@@ -252,7 +260,7 @@
 
     <nav>
         <div class="logo-container">
-            <img src="images/croparm.png" alt="ARM Logo" class="logo-img" onerror="this.style.display='none'">
+            <img src="image_0fb701.png" alt="ARM Logo" class="logo-img" onerror="this.style.display='none'">
             <div>
                 <h4 style="color:var(--orange); line-height:1; font-size:1.1rem;">ARM</h4>
                 <small style="color:#888; font-weight:700; font-size:0.7rem;">Study Co.</small>
@@ -267,8 +275,8 @@
                 <span class="badge-item"><i class="fas fa-brain"></i> Melatih Motorik</span>
                 <span class="badge-item"><i class="fas fa-smile"></i> Anak Happy</span>
             </div>
-            <h1>Main Seru, <br><span>Belajar Jadi Asyik!</span></h1>
-            <p>Koleksi worksheet tematik favorit anak. Bantu si kecil belajar aktif tanpa harus menatap layar terus.</p>
+            <h1>Main Jadi <br><span>Belajar Seru!</span></h1>
+            <p>Koleksi worksheet tematik favorit anak. Solusi cerdas orang tua untuk kurangi screen-time.</p>
             <button class="btn btn-primary" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">
                 <i class="fas fa-rocket"></i> Lihat Katalog
             </button>
@@ -287,7 +295,8 @@
         </div>
 
         <div class="product-grid" id="gridContainer">
-            </div>
+            <p style="text-align:center; width:100%; grid-column: 1/-1;">Memuat produk...</p>
+        </div>
     </section>
 
     <section class="container">
@@ -353,77 +362,37 @@
     </div>
 
     <script>
-        // CONFIG
+        // --- CONFIG & GLOBAL VARS ---
         const NO_WA = "62812345678"; // GANTI NOMOR WA ANDA
-
-        // DATA
-        const products = [
-            { 
-                id: 101, 
-                name: "Roblox Adventure Coloring", 
-                category: "coloring", 
-                theme: "roblox", 
-                price: 15000, 
-                img: "https://placehold.co/400x300/E74C3C/FFF?text=Roblox+Coloring",
-                desc: "50 Halaman mewarnai karakter Roblox yang seru untuk melatih kreativitas anak." 
-            },
-            { 
-                id: 102, 
-                name: "Roblox Number Tracing", 
-                category: "tracing", 
-                theme: "roblox", 
-                price: 20000, 
-                img: "https://placehold.co/400x300/C0392B/FFF?text=Roblox+Tracing",
-                desc: "Belajar menulis angka 1-20 ditemani karakter Roblox. Cocok untuk usia 4-6 tahun." 
-            },
-            { 
-                id: 201, 
-                name: "Frozen Magic Coloring", 
-                category: "coloring", 
-                theme: "frozen", 
-                price: 15000, 
-                img: "https://placehold.co/400x300/3498DB/FFF?text=Frozen+Coloring",
-                desc: "Mewarnai Elsa, Anna, dan Olaf. Halaman tebal dan garis jelas." 
-            },
-            { 
-                id: 202, 
-                name: "Frozen Letter Tracing", 
-                category: "tracing", 
-                theme: "frozen", 
-                price: 20000, 
-                img: "https://placehold.co/400x300/2980B9/FFF?text=Frozen+Tracing",
-                desc: "Latihan menulis huruf A-Z dengan tema istana es Frozen." 
-            },
-            { 
-                id: 301, 
-                name: "Cerita Nusantara Coloring", 
-                category: "coloring", 
-                theme: "nusantara", 
-                price: 12000, 
-                img: "https://placehold.co/400x300/F1C40F/333?text=Nusantara+Coloring",
-                desc: "Mengenal budaya Indonesia lewat mewarnai baju adat dan rumah adat." 
-            },
-            { 
-                id: 302, 
-                name: "Cerita Nusantara Tracing", 
-                category: "tracing", 
-                theme: "nusantara", 
-                price: 18000, 
-                img: "https://placehold.co/400x300/F39C12/333?text=Nusantara+Tracing",
-                desc: "Tracing garis putus-putus membentuk pola batik dan wayang sederhana." 
-            }
-        ];
-
+        let products = []; // Data akan diisi dari products.json
         let cart = [];
 
-        window.onload = () => { renderGrid(products); };
+        // --- FETCH DATA (DARI GITHUB / JSON) ---
+        window.onload = async () => {
+            await loadProducts();
+        };
 
+        async function loadProducts() {
+            try {
+                // Fetch file 'products.json' yang ada di folder yang sama
+                const response = await fetch('products.json');
+                if (!response.ok) throw new Error("Gagal mengambil data");
+                
+                products = await response.json();
+                renderGrid(products);
+            } catch (error) {
+                console.error(error);
+                document.getElementById('gridContainer').innerHTML = "<p style='grid-column:1/-1; text-align:center;'>Gagal memuat produk. Pastikan file products.json ada.</p>";
+            }
+        }
+
+        // --- RENDER GRID ---
         function renderGrid(data) {
             const container = document.getElementById('gridContainer');
             container.innerHTML = '';
             
             data.forEach(p => {
-                let tagClass = 'tag-roblox';
+                let tagClass = 'tag-roblox'; // Default color style
                 if(p.theme === 'frozen') tagClass = 'tag-frozen';
                 if(p.theme === 'nusantara') tagClass = 'tag-nusantara';
 
@@ -542,7 +511,7 @@
             if(cart.length === 0) document.getElementById('floatingCart').classList.remove('visible');
         }
 
-        // --- COPYWRITING BARU (CHECKOUT WA) ---
+        // --- CHECKOUT & WA COPYWRITING (OPTIMIZED) ---
         function checkoutWA() {
             if(cart.length === 0) return;
             
@@ -560,14 +529,12 @@
             window.open(`https://wa.me/${NO_WA}?text=${msg}`, '_blank');
         }
 
-        // --- CUSTOM REQUEST LOGIC ---
+        // --- CUSTOM REQUEST ---
         function toggleCustomInput() {
             const select = document.getElementById('reqType');
             const otherInput = document.getElementById('reqTypeOther');
-            
             if (select.value === 'Custom') {
-                otherInput.style.display = 'block';
-                otherInput.focus();
+                otherInput.style.display = 'block'; otherInput.focus();
             } else {
                 otherInput.style.display = 'none';
             }
@@ -576,15 +543,12 @@
         function sendCustomRequest() {
             const select = document.getElementById('reqType');
             let type = select.value;
-            
             if (type === 'Custom') {
                 const otherVal = document.getElementById('reqTypeOther').value;
                 type = otherVal ? otherVal : "Custom Request";
             }
-            
             const theme = document.getElementById('reqTheme').value || "Bebas";
             
-            // COPYWRITING CUSTOM REQUEST
             const msg = `Halo Kak Admin! 👋%0A%0ASaya lagi cari worksheet khusus tapi belum nemu di katalog. Bisa bantu buatkan?%0A%0A📄 Jenis: ${type}%0A🎨 Tema/Karakter: ${theme}%0A%0ABoleh info estimasi harganya Kak? Makasih ya!`;
             
             window.open(`https://wa.me/${NO_WA}?text=${msg}`, '_blank');
