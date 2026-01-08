@@ -27,7 +27,6 @@
             font-family: 'Quicksand', sans-serif; 
             background-color: var(--paper); 
             color: var(--text);
-            /* Pola Grid */
             background-image: 
                 linear-gradient(#E5E5E5 1px, transparent 1px),
                 linear-gradient(90deg, #E5E5E5 1px, transparent 1px);
@@ -42,23 +41,23 @@
         button, input, select, textarea { font-family: 'Quicksand', sans-serif; outline: none; transition: 0.2s; }
         button { cursor: pointer; border: none; }
         
-        /* Container Setup agar Konten Selalu di Atas Background */
+        /* Container Setup */
         .container { 
             max-width: 1100px; 
             margin: 0 auto; 
             padding: 0 20px; 
             position: relative; 
-            z-index: 2; /* PENTING: Agar konten di atas blob */
+            z-index: 2; 
         }
 
         /* --- 2. DEKORASI BACKGROUND (BLOB) --- */
         .blob-bg {
-            position: fixed; /* Ubah ke fixed agar tidak menggeser layout */
+            position: fixed;
             border-radius: 50%;
             filter: blur(40px);
-            opacity: 0.4; /* Transparansi */
-            z-index: 0; /* PENTING: Paling belakang */
-            pointer-events: none; /* Agar tidak menghalangi klik */
+            opacity: 0.4;
+            z-index: 0;
+            pointer-events: none;
         }
         .blob-1 { top: -50px; left: -50px; width: 300px; height: 300px; background: var(--blue); }
         .blob-2 { top: 20%; right: -100px; width: 250px; height: 250px; background: var(--yellow); }
@@ -94,13 +93,13 @@
         .logo-img { height: 35px; }
 
         .hero { padding: 40px 0 60px; text-align: center; position: relative; z-index: 2; }
-        .hero h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 15px; }
+        .hero h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 20px; }
         .hero h1 span { color: var(--blue); position: relative; }
         .hero h1 span::after {
             content: ''; position: absolute; bottom: 5px; left: 0; width: 100%; height: 10px;
             background: var(--yellow); z-index: -1; border-radius: 10px; opacity: 0.6;
         }
-        .hero p { font-size: 1.1rem; color: #666; max-width: 500px; margin: 0 auto 30px; }
+        .hero p { font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto 30px; line-height: 1.6; }
 
         .hero-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
         .badge-item {
@@ -126,19 +125,17 @@
             padding-bottom: 20px;
         }
 
-        /* CARD STYLE & ANIMATION FIX */
+        /* CARD STYLE */
         .product-card {
             background: white; 
             border-radius: var(--radius); 
             position: relative;
-            /* Transisi wajib ada di state awal agar animasi jalan */
             transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s; 
             border: 3px solid #f0f0f0;
             cursor: pointer;
-            z-index: 2; /* Agar di atas blob */
+            z-index: 2;
         }
         
-        /* HOVER: Dipaksa nyala (tanpa media query) agar efeknya muncul di semua device */
         .product-card:hover {
             transform: translateY(-10px) rotate(-1deg); 
             border-color: var(--orange);
@@ -146,9 +143,8 @@
             z-index: 5;
         }
 
-        /* ACTIVE: Efek pencet di HP */
         .product-card:active { 
-            transform: scale(0.96) !important; /* Paksa override hover saat dipencet */
+            transform: scale(0.96) !important; 
             border-color: var(--orange); 
         }
 
@@ -192,9 +188,9 @@
         }
         .btn-add-mini:hover { transform: scale(1.1) rotate(90deg); background: var(--orange); }
 
-        /* --- 6. CUSTOM REQUEST --- */
+        /* --- 6. CUSTOM REQUEST (MOBILE FRIENDLY) --- */
         .custom-section {
-            margin: 60px 0 120px; /* Margin bawah besar agar tidak ketutup cart */
+            margin: 60px 0 120px; 
             background: #F3E5F5;
             border-radius: 30px;
             padding: 30px;
@@ -207,22 +203,24 @@
         .custom-desc { max-width: 600px; margin: 0 auto 25px; color: #555; font-size: 0.95rem; }
 
         .custom-form {
-            display: grid; gap: 15px; max-width: 500px; margin: 0 auto;
-            background: white; padding: 20px; border-radius: 20px;
+            display: grid; gap: 15px; max-width: 400px; margin: 0 auto;
+            background: white; padding: 25px; border-radius: 20px;
             box-shadow: 0 10px 20px rgba(165, 94, 234, 0.15);
         }
-        .form-label { font-weight: 700; font-size: 0.85rem; margin-bottom: 5px; display: block; text-align: left; }
+        .form-label { font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; display: block; text-align: left; }
         .form-input {
-            width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px;
-            font-size: 0.95rem; background: #FAFAFA;
+            width: 100%; padding: 14px; border: 2px solid #eee; border-radius: 15px;
+            font-size: 1rem; background: #FAFAFA;
         }
+        .form-input:focus { border-color: var(--purple); background: #fff; }
+        
         .hidden-input { display: none; margin-top: 10px; border-color: var(--purple); animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity:0; transform:translateY(-5px); } to { opacity:1; transform:translateY(0); } }
 
         /* --- 7. MODALS --- */
         .modal-wrap {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.95); z-index: 9999; /* Z-Index Tertinggi */
+            background: rgba(255, 255, 255, 0.95); z-index: 9999;
             display: none; justify-content: center; align-items: center; padding: 20px;
         }
         .modal-wrap.show { display: flex; }
@@ -244,7 +242,7 @@
             padding: 12px 20px; border-radius: 50px;
             display: flex; align-items: center; gap: 10px; font-weight: 700;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            transform: scale(0); transition: 0.3s; z-index: 5000; /* Z-Index Tinggi */
+            transform: scale(0); transition: 0.3s; z-index: 5000;
         }
         .cart-float.visible { transform: scale(1); }
         .cart-badge { background: var(--orange); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; }
@@ -253,7 +251,6 @@
         @media (max-width: 480px) {
             .hero { padding: 30px 0 40px; }
             .hero h1 { font-size: 2.2rem; }
-            /* Grid 2 Kolom */
             .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
             .product-card { border-width: 2px; }
             .card-image-wrapper { height: 115px; }
@@ -265,6 +262,10 @@
             .price { font-size: 0.9rem; }
             .tape { width: 40px; height: 15px; top: -6px; }
             .cart-float { bottom: 20px; right: 20px; font-size: 0.85rem; padding: 10px 16px; }
+            
+            /* Form Optimization Mobile */
+            .custom-section { padding: 20px; }
+            .custom-form { padding: 20px; width: 100%; }
         }
     </style>
 </head>
@@ -276,7 +277,7 @@
 
     <nav>
         <div class="logo-container">
-            <img src="images/croparm.png" alt="ARM Logo" class="logo-img" onerror="this.style.display='none'">
+            <img src="image_0fb701.png" alt="ARM Logo" class="logo-img" onerror="this.style.display='none'">
             <div>
                 <h4 style="color:var(--orange); line-height:1; font-size:1.1rem;">ARM</h4>
                 <small style="color:#888; font-weight:700; font-size:0.7rem;">Study Co.</small>
@@ -287,12 +288,17 @@
     <section class="hero">
         <div class="container">
             <div class="hero-badges">
-                <span class="badge-item"><i class="fas fa-eye-slash"></i> Kurangi Gadget</span>
-                <span class="badge-item"><i class="fas fa-brain"></i> Melatih Motorik</span>
-                <span class="badge-item"><i class="fas fa-smile"></i> Anak Happy</span>
+                <span class="badge-item">🚫 No Gadget</span>
+                <span class="badge-item">🧠 Motorik</span>
+                <span class="badge-item">🥰 Happy</span>
             </div>
-            <h1>Main Jadi <br><span>Belajar Seru!</span></h1>
-            <p>Koleksi worksheet tematik favorit anak. Solusi cerdas orang tua untuk kurangi screen-time.</p>
+            
+            <h1>Main Seru, <br><span>Belajar Jadi Asyik!</span></h1>
+            <p>
+                Koleksi worksheet tematik favorit anak. <br>
+                Bantu si kecil belajar aktif tanpa harus menatap layar terus.
+            </p>
+            
             <button class="btn btn-primary" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">
                 <i class="fas fa-rocket"></i> Lihat Katalog
             </button>
@@ -311,7 +317,8 @@
         </div>
 
         <div class="product-grid" id="gridContainer">
-            </div>
+            <p style="text-align:center; width:100%; grid-column:1/-1; color:#999;">Memuat produk...</p>
+        </div>
     </section>
 
     <section class="container">
@@ -337,7 +344,7 @@
                     <label class="form-label">Tema / Karakter (Opsional)</label>
                     <input type="text" id="reqTheme" class="form-input" placeholder="Contoh: Pokemon, Upin Ipin...">
                 </div>
-                <button class="btn btn-custom" style="width:100%; justify-content:center;" onclick="sendCustomRequest()">
+                <button class="btn btn-custom" style="width:100%; justify-content:center; margin-top:10px;" onclick="sendCustomRequest()">
                     <i class="fas fa-magic"></i>&nbsp; Request via WA
                 </button>
             </div>
@@ -380,67 +387,29 @@
         // CONFIG
         const NO_WA = "62812345678"; // GANTI NOMOR WA
 
-        // DATA
-        const products = [
-            { 
-                id: 101, 
-                name: "Roblox Adventure Coloring", 
-                category: "coloring", 
-                theme: "roblox", 
-                price: 15000, 
-                img: "https://placehold.co/400x300/E74C3C/FFF?text=Roblox+Coloring",
-                desc: "50 Halaman mewarnai karakter Roblox yang seru untuk melatih kreativitas anak." 
-            },
-            { 
-                id: 102, 
-                name: "Roblox Number Tracing", 
-                category: "tracing", 
-                theme: "roblox", 
-                price: 20000, 
-                img: "https://placehold.co/400x300/C0392B/FFF?text=Roblox+Tracing",
-                desc: "Belajar menulis angka 1-20 ditemani karakter Roblox. Cocok untuk usia 4-6 tahun." 
-            },
-            { 
-                id: 201, 
-                name: "Frozen Magic Coloring", 
-                category: "coloring", 
-                theme: "frozen", 
-                price: 15000, 
-                img: "https://placehold.co/400x300/3498DB/FFF?text=Frozen+Coloring",
-                desc: "Mewarnai Elsa, Anna, dan Olaf. Halaman tebal dan garis jelas." 
-            },
-            { 
-                id: 202, 
-                name: "Frozen Letter Tracing", 
-                category: "tracing", 
-                theme: "frozen", 
-                price: 20000, 
-                img: "https://placehold.co/400x300/2980B9/FFF?text=Frozen+Tracing",
-                desc: "Latihan menulis huruf A-Z dengan tema istana es Frozen." 
-            },
-            { 
-                id: 301, 
-                name: "Cerita Nusantara Coloring", 
-                category: "coloring", 
-                theme: "nusantara", 
-                price: 12000, 
-                img: "https://placehold.co/400x300/F1C40F/333?text=Nusantara+Coloring",
-                desc: "Mengenal budaya Indonesia lewat mewarnai baju adat dan rumah adat." 
-            },
-            { 
-                id: 302, 
-                name: "Cerita Nusantara Tracing", 
-                category: "tracing", 
-                theme: "nusantara", 
-                price: 18000, 
-                img: "https://placehold.co/400x300/F39C12/333?text=Nusantara+Tracing",
-                desc: "Tracing garis putus-putus membentuk pola batik dan wayang sederhana." 
-            }
-        ];
-
+        // INIT VARS
+        let products = [];
         let cart = [];
 
-        window.onload = () => { renderGrid(products); };
+        // FETCH JSON DATA
+        async function loadProducts() {
+            try {
+                // Fetch dari products.json
+                const response = await fetch('./products.json');
+                if (!response.ok) throw new Error("Gagal mengambil data");
+                
+                products = await response.json();
+                renderGrid(products);
+            } catch (error) {
+                console.error(error);
+                document.getElementById('gridContainer').innerHTML = `
+                    <p style="text-align:center; width:100%; grid-column:1/-1; color:red;">
+                        Gagal memuat produk. Pastikan file 'products.json' ada.
+                    </p>`;
+            }
+        }
+
+        window.onload = () => { loadProducts(); };
 
         function renderGrid(data) {
             const container = document.getElementById('gridContainer');
@@ -566,11 +535,11 @@
             if(cart.length === 0) document.getElementById('floatingCart').classList.remove('visible');
         }
 
-        // --- CHECKOUT & CUSTOM REQUEST ---
+        // --- CHECKOUT & REQUEST ---
         function checkoutWA() {
             if(cart.length === 0) return;
             
-            let msg = "Halo Kak Admin ARM! 👋%0A%0ASaya mau pesan worksheet ini buat si kecil belajar di rumah:%0A";
+            let msg = "Halo Kak Admin ARM! 👋%0A%0ASaya mau pesan worksheet pintar ini buat si kecil belajar di rumah:%0A";
             let total = 0;
             
             cart.forEach((item, i) => {
