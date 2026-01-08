@@ -267,6 +267,41 @@
             .custom-section { padding: 20px; }
             .custom-form { padding: 20px; width: 100%; }
         }
+
+        /* TAMBAHAN WATERMARK STYLE */
+        .preview-image-container {
+            position: relative; /* Penting untuk parent absolute */
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden; /* Agar watermark tidak keluar dari sudut rounded */
+        }
+        
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg); /* Miring diagonal */
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.7); /* Putih transparan */
+            border: 3px dashed rgba(255, 255, 255, 0.7);
+            padding: 10px 40px;
+            border-radius: 15px;
+            pointer-events: none; /* Agar gambar tetap bisa diklik kanan/save jika perlu, atau block */
+            z-index: 10;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            white-space: nowrap;
+        }
+        
+        /* Update class preview-img agar margin ditangani container */
+        .preview-img {
+            width: 100%;
+            /* margin-bottom: 20px; <--- HAPUS BARIS INI KARENA SUDAH DI CONTAINER */ 
+            display: block;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }        
     </style>
 </head>
 <body>
@@ -402,10 +437,19 @@
                 renderGrid(products);
             } catch (error) {
                 console.error(error);
+                // UI Error yang ramah dan menempati seluruh lebar grid (grid-column:1/-1)
                 document.getElementById('gridContainer').innerHTML = `
-                    <p style="text-align:center; width:100%; grid-column:1/-1; color:red;">
-                        Gagal memuat produk. Pastikan file 'products.json' ada.
-                    </p>`;
+                    <div style="text-align:center; width:100%; grid-column:1/-1; padding: 40px 20px; color:#888;">
+                        <i class="fas fa-wifi" style="font-size:3rem; margin-bottom:20px; color:#ddd;"></i>
+                        
+                        <h3 style="margin-bottom:10px;">Ups, Katalog Gagal Dimuat</h3>
+                        
+                        <p style="margin-bottom:20px;">Sepertinya ada gangguan koneksi atau file tidak ditemukan.</p>
+                        
+                        <button class="btn btn-primary" onclick="location.reload()">
+                            <i class="fas fa-sync-alt"></i> Coba Refresh
+                        </button>
+                    </div>`;
             }
         }
 
@@ -425,7 +469,12 @@
                         <div class="tape"></div>
                         <div class="card-image-wrapper">
                             <span class="tag-variant ${tagClass}">${p.theme.toUpperCase()}</span>
-                            <img src="${p.img}" alt="${p.name}">
+                            
+                            <img 
+                                src="${p.img}" 
+                                alt="${p.name}" 
+                                onerror="this.onerror=null; this.src='https://placehold.co/400x300/eee/999?text=Gambar+Rusak';"
+                            >
                         </div>
                         <div class="card-content">
                             <span class="card-cat">${p.category}</span>
@@ -459,7 +508,12 @@
             if(p.theme === 'nusantara') tagColor = '#F1C40F';
 
             content.innerHTML = `
-                <img src="${p.img}" class="preview-img">
+                <img src="${p.img}" class="preview-img" onerror="this.onerror=null; this.src='https://placehold.co/400x300/eee/999?text=Gambar+Rusak';">
+                <div class="preview-image-container">
+                    <img src="${p.img}" class="preview-img" onerror="this.onerror=null; this.src='https://placehold.co/400x300/eee/999?text=Gambar+Rusak';">
+                    
+                    <div class="watermark">PREVIEW ONLY</div>
+                </div>              
                 <div class="preview-details">
                     <span class="preview-tag" style="background:${tagColor}">${p.theme.toUpperCase()}</span>
                     <h3>${p.name}</h3>
@@ -588,5 +642,6 @@
     </script>
 </body>
 </html>
+
 
 
