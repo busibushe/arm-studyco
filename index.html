@@ -2,297 +2,246 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARM Study Co - Pintar Sejak Dini</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ARM Study Co - Worksheet Anak Tematik</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* --- 1. SETTINGS & VARIABLES --- */
         :root {
-            /* Palette Ceria namun Soft (ARM Logo Base) */
             --orange: #FF8C42; 
             --blue: #4FB0E6; 
             --green: #8FD694; 
             --yellow: #FFD93D;
+            --purple: #A55EEA;
             --paper: #FFFDF9;
             --text: #2D3436;
-            --radius: 24px;
-            --blob-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            --radius: 20px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body { 
             font-family: 'Quicksand', sans-serif; 
             background-color: var(--paper); 
             color: var(--text);
-            /* Background Pola Grid Buku Tulis Halus */
             background-image: 
                 linear-gradient(#E5E5E5 1px, transparent 1px),
                 linear-gradient(90deg, #E5E5E5 1px, transparent 1px);
             background-size: 40px 40px;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         h1, h2, h3, h4 { font-family: 'Fredoka', sans-serif; letter-spacing: 0.5px; }
-        
-        button { cursor: pointer; border: none; outline: none; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        a { text-decoration: none; color: inherit; }
+        button, input, select, textarea { font-family: 'Quicksand', sans-serif; outline: none; transition: 0.2s; }
+        button { cursor: pointer; border: none; }
         
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; position: relative; }
 
         /* --- 2. COMPONENTS --- */
-        
-        /* Tombol Bouncy & Playful */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 14px 28px; border-radius: 50px;
+            font-weight: 700; font-size: 1.1rem;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.1);
             transform: translateY(0);
         }
-        .btn:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(0,0,0,0.1); }
+        .btn:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,0.1); }
         
         .btn-primary { background: var(--orange); color: white; }
-        .btn-primary:hover { background: #FF7A20; }
-        
-        .btn-whatsapp { background: #25D366; color: white; width: 100%; justify-content: center; }
+        .btn-custom { background: var(--purple); color: white; box-shadow: 0 6px 0 #8844d1; }
+        .btn-whatsapp { background: #25D366; color: white; width: 100%; justify-content: center; box-shadow: 0 4px 0 #1da851; }
 
         .blob-shape {
-            position: absolute;
-            z-index: -1;
-            opacity: 0.1;
-            border-radius: var(--blob-radius);
+            position: absolute; z-index: -1; opacity: 0.1;
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
         }
 
-        /* --- 3. HEADER & HERO --- */
-        nav {
-            padding: 20px 0;
-            display: flex;
-            justify-content: center;
-        }
+        /* --- 3. HERO --- */
+        nav { padding: 15px 0; display: flex; justify-content: center; }
         .logo-container {
-            background: white;
-            padding: 10px 30px;
-            border-radius: 50px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 2px solid #eee;
+            background: white; padding: 8px 25px; border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 2px solid #eee;
+            display: flex; align-items: center; gap: 8px; z-index: 10;
         }
-        .logo-img { height: 45px; }
+        .logo-img { height: 35px; }
 
-        .hero {
-            padding: 60px 0 100px;
-            text-align: center;
-            position: relative;
-        }
-        
-        .hero h1 { 
-            font-size: 3rem; 
-            color: var(--text); 
-            line-height: 1.2; 
-            margin-bottom: 20px;
-        }
-        .hero h1 span { color: var(--blue); position: relative; display: inline-block; }
+        .hero { padding: 40px 0 60px; text-align: center; }
+        .hero h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 15px; }
+        .hero h1 span { color: var(--blue); position: relative; }
         .hero h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: 5px; left: 0; width: 100%; height: 12px;
-            background: var(--yellow);
-            z-index: -1;
-            border-radius: 10px;
-            opacity: 0.6;
+            content: ''; position: absolute; bottom: 5px; left: 0; width: 100%; height: 10px;
+            background: var(--yellow); z-index: -1; border-radius: 10px; opacity: 0.6;
         }
+        .hero p { font-size: 1.1rem; color: #666; max-width: 500px; margin: 0 auto 30px; }
 
-        .hero p { font-size: 1.2rem; color: #666; max-width: 600px; margin: 0 auto 40px; }
-
-        .hero-badges {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
+        .hero-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
         .badge-item {
-            background: white;
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 1px dashed var(--orange);
-            color: #555;
+            background: white; padding: 6px 12px; border-radius: 15px; font-size: 0.85rem;
+            font-weight: 600; border: 1px dashed var(--orange); color: #555;
         }
 
-        /* --- 4. CATALOG SECTION --- */
-        .catalog-header { text-align: center; margin-bottom: 50px; }
-        .catalog-header h2 { font-size: 2.2rem; margin-bottom: 10px; }
+        /* --- 4. CATALOG & CARDS --- */
+        .catalog-header { text-align: center; margin-bottom: 30px; }
         
-        /* Custom Toggle Switch for Boy/Girl */
-        .gender-toggle {
-            background: #fff;
-            display: inline-flex;
-            padding: 5px;
-            border-radius: 50px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border: 2px solid #eee;
-            margin-bottom: 40px;
+        .cat-toggle {
+            background: #fff; display: inline-flex; padding: 4px; border-radius: 50px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05); border: 1px solid #eee; margin-top: 10px; flex-wrap: wrap; justify-content: center;
         }
         .toggle-btn {
-            padding: 10px 25px;
-            border-radius: 40px;
-            font-weight: 700;
-            color: #888;
-            font-family: 'Fredoka', sans-serif;
-            background: transparent;
+            padding: 8px 18px; border-radius: 40px; font-weight: 700; color: #999;
+            font-family: 'Fredoka', sans-serif; background: transparent; font-size: 0.9rem;
         }
-        .toggle-btn.active-boy { background: var(--blue); color: white; }
-        .toggle-btn.active-girl { background: #FF9F9F; color: white; }
-        .toggle-btn.active-all { background: var(--yellow); color: var(--text); }
+        .toggle-btn.active { background: var(--blue); color: white; }
 
         .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 40px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 30px;
         }
 
+        /* CARD STYLE - FIXED ANIMATION */
         .product-card {
-            background: white;
-            border-radius: var(--radius);
+            background: white; 
+            border-radius: var(--radius); 
             position: relative;
-            transition: 0.3s;
+            /* Pastikan transition aktif di class utama */
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
             border: 3px solid #f0f0f0;
+            cursor: pointer;
+            top: 0; /* Base position */
         }
+        
+        /* HOVER EFFECT (Desktop) */
         .product-card:hover {
-            transform: translateY(-10px) rotate(-2deg);
+            transform: translateY(-10px) rotate(-1deg); /* Efek naik & miring dikit */
             border-color: var(--orange);
-            box-shadow: 0 15px 30px rgba(255, 140, 66, 0.2);
-        }
-
-        /* TAPE EFFECT */
-        .tape {
-            position: absolute;
-            top: -10px; left: 50%; transform: translateX(-50%);
-            width: 80px; height: 25px;
-            background: rgba(255,255,255,0.4);
-            border-left: 1px dashed rgba(0,0,0,0.1);
-            border-right: 1px dashed rgba(0,0,0,0.1);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 30px rgba(255, 140, 66, 0.25);
             z-index: 2;
         }
 
+        /* ACTIVE EFFECT (Mobile Tap) */
+        .product-card:active { 
+            transform: scale(0.96); 
+            border-color: var(--orange); 
+            transition: 0.1s;
+        }
+
+        .tape {
+            position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+            width: 70px; height: 22px; background: rgba(255,255,255,0.5);
+            border-left: 1px dashed #ccc; border-right: 1px dashed #ccc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); z-index: 2;
+        }
+
         .card-image-wrapper {
-            height: 220px;
-            overflow: hidden;
+            height: 180px; overflow: hidden;
             border-radius: var(--radius) var(--radius) 0 0;
-            background: #f9f9f9;
-            position: relative;
+            background: #f9f9f9; position: relative;
         }
         .card-image-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-        
         .tag-variant {
-            position: absolute;
-            bottom: 10px; right: 10px;
-            padding: 5px 12px;
-            border-radius: 15px;
-            color: white;
-            font-weight: bold;
-            font-size: 0.8rem;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            position: absolute; bottom: 8px; right: 8px; padding: 4px 10px;
+            border-radius: 10px; color: white; font-weight: bold; font-size: 0.75rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+        .tag-roblox { background: #E74C3C; }
+        .tag-frozen { background: #3498DB; }
+        .tag-nusantara { background: #F1C40F; color: #333 !important; }
 
-        .card-content { padding: 20px; }
-        .card-cat { color: #888; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; display: block; }
-        .card-title { font-size: 1.3rem; margin-bottom: 15px; color: var(--text); line-height: 1.3; }
-        
+        .card-content { padding: 15px; }
+        .card-title { font-size: 1.1rem; margin-bottom: 5px; color: var(--text); line-height: 1.3; }
         .card-action {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 2px dashed #eee;
-            padding-top: 15px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 2px dashed #eee; padding-top: 10px; margin-top: 10px;
         }
-        .price { font-size: 1.2rem; font-weight: 800; color: var(--text); }
-        
-        .btn-add {
-            width: 45px; height: 45px;
-            background: var(--green);
-            color: white;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 0 #6FB875;
+        .price { font-size: 1.1rem; font-weight: 800; color: var(--text); }
+        .btn-add-mini {
+            width: 32px; height: 32px; background: var(--green); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1rem; box-shadow: 0 2px 0 #6FB875;
         }
-        .btn-add:active { box-shadow: 0 0 0; transform: translateY(4px); }
+        .btn-add-mini:hover { transform: scale(1.1); }
 
-        /* --- 5. FLOATING CART --- */
-        .cart-float {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            background: var(--text);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 50px;
-            display: flex; align-items: center; gap: 15px;
-            font-weight: 700;
-            box-shadow: 0 10px 25px rgba(45, 52, 54, 0.3);
-            cursor: pointer;
-            z-index: 100;
-            transform: scale(0);
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        /* --- 5. CUSTOM REQUEST SECTION --- */
+        .custom-section {
+            margin: 60px 0 100px;
+            background: #F3E5F5;
+            border-radius: 30px;
+            padding: 30px;
+            position: relative;
+            text-align: center;
+            border: 2px dashed var(--purple);
         }
-        .cart-float.visible { transform: scale(1); }
-        .cart-float i { font-size: 1.2rem; }
-        
-        .cart-badge {
-            background: var(--orange);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-        }
+        .custom-title { color: var(--purple); margin-bottom: 10px; font-size: 1.6rem; }
+        .custom-desc { max-width: 600px; margin: 0 auto 25px; color: #555; font-size: 0.95rem; }
 
-        /* --- 6. MODAL --- */
+        .custom-form {
+            display: grid; gap: 15px; max-width: 500px; margin: 0 auto;
+            background: white; padding: 20px; border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(165, 94, 234, 0.15);
+        }
+        .form-label { font-weight: 700; font-size: 0.85rem; margin-bottom: 5px; display: block; text-align: left; }
+        .form-input {
+            width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px;
+            font-size: 0.95rem; background: #FAFAFA;
+        }
+        
+        .hidden-input { 
+            display: none; margin-top: 10px; border-color: var(--purple); 
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-5px); } to { opacity:1; transform:translateY(0); } }
+
+        /* --- 6. MODALS --- */
         .modal-wrap {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(5px);
-            z-index: 200;
-            display: none;
-            justify-content: center; align-items: center;
-            opacity: 0; transition: 0.3s;
+            background: rgba(255, 255, 255, 0.95); z-index: 200;
+            display: none; justify-content: center; align-items: center; padding: 20px;
         }
-        .modal-wrap.show { display: flex; opacity: 1; }
+        .modal-wrap.show { display: flex; }
         
         .modal-box {
-            background: white;
-            width: 90%; max-width: 450px;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            padding: 30px;
-            border: 2px solid #eee;
-            position: relative;
+            background: white; width: 100%; max-width: 450px;
+            border-radius: 25px; box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            padding: 25px; border: 1px solid #eee; position: relative;
+            max-height: 90vh; overflow-y: auto;
         }
-        
-        .cart-item {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px dashed #eee;
+
+        .preview-img { width: 100%; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .preview-tag { 
+            display: inline-block; padding: 4px 12px; border-radius: 20px; 
+            font-size: 0.8rem; font-weight: bold; color: white; margin-bottom: 15px; 
         }
-        
-        /* --- MOBILE --- */
-        @media(max-width: 768px) {
+        .preview-desc { font-size: 0.95rem; color: #666; line-height: 1.6; margin-bottom: 20px; }
+
+        .cart-float {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--text); color: white;
+            padding: 12px 20px; border-radius: 50px;
+            display: flex; align-items: center; gap: 10px; font-weight: 700;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: scale(0); transition: 0.3s; z-index: 100;
+        }
+        .cart-float.visible { transform: scale(1); }
+        .cart-badge { background: var(--orange); color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; }
+
+        /* --- 7. MOBILE OPTIMIZATION --- */
+        @media (max-width: 480px) {
+            .hero { padding: 30px 0 40px; }
             .hero h1 { font-size: 2.2rem; }
-            .toggle-btn { padding: 8px 15px; font-size: 0.9rem; }
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+            .product-card { border-width: 2px; }
+            .card-image-wrapper { height: 115px; }
+            .card-content { padding: 10px; }
+            .card-title { 
+                font-size: 0.9rem; margin-bottom: 5px; height: 2.4rem; 
+                overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            }
+            .price { font-size: 0.9rem; }
+            .tape { width: 40px; height: 15px; top: -6px; }
+            .cart-float { bottom: 20px; right: 20px; font-size: 0.85rem; padding: 10px 16px; }
         }
     </style>
 </head>
@@ -303,10 +252,10 @@
 
     <nav>
         <div class="logo-container">
-            <img src="images/croparm.png" alt="ARM Logo" class="logo-img">
+            <img src="images/croparm.png" alt="ARM Logo" class="logo-img" onerror="this.style.display='none'">
             <div>
-                <h4 style="color:var(--orange); line-height:1;">ARM</h4>
-                <small style="color:#888; font-weight:700;">Study Co.</small>
+                <h4 style="color:var(--orange); line-height:1; font-size:1.1rem;">ARM</h4>
+                <small style="color:#888; font-weight:700; font-size:0.7rem;">Study Co.</small>
             </div>
         </div>
     </nav>
@@ -318,10 +267,10 @@
                 <span class="badge-item"><i class="fas fa-brain"></i> Melatih Motorik</span>
                 <span class="badge-item"><i class="fas fa-smile"></i> Anak Happy</span>
             </div>
-            <h1>Ubah Waktu Main Jadi <br><span>Momen Belajar Seru!</span></h1>
-            <p>Worksheet aktivitas kreatif yang didesain khusus agar anak tidak merasa sedang belajar. Solusi tepat untuk orang tua cerdas.</p>
-            <button class="btn btn-primary" onclick="scrollToCatalog()">
-                <i class="fas fa-rocket"></i> Pilih Worksheet
+            <h1>Main Seru, <br><span>Belajar Jadi Asyik!</span></h1>
+            <p>Koleksi worksheet tematik favorit anak. Bantu si kecil belajar aktif tanpa harus menatap layar terus.</p>
+            <button class="btn btn-primary" onclick="document.getElementById('catalog').scrollIntoView({behavior: 'smooth'})">
+                <i class="fas fa-rocket"></i> Lihat Katalog
             </button>
         </div>
     </section>
@@ -330,10 +279,10 @@
         <div class="catalog-header">
             <h2>Pustaka <span style="color:var(--green)">Aktivitas</span></h2>
             
-            <div class="gender-toggle">
-                <button class="toggle-btn active-all" onclick="filterData('all', this)">Semua</button>
-                <button class="toggle-btn" onclick="filterData('boy', this)">Cowok 👦</button>
-                <button class="toggle-btn" onclick="filterData('girl', this)">Cewek 👧</button>
+            <div class="cat-toggle">
+                <button class="toggle-btn active" onclick="filterData('all', this)">Semua</button>
+                <button class="toggle-btn" onclick="filterData('coloring', this)">Coloring 🎨</button>
+                <button class="toggle-btn" onclick="filterData('tracing', this)">Tracing ✏️</button>
             </div>
         </div>
 
@@ -341,195 +290,309 @@
             </div>
     </section>
 
-    <div style="height: 100px;"></div>
+    <section class="container">
+        <div class="custom-section">
+            <h2 class="custom-title">✨ Request Tema Lain?</h2>
+            <p class="custom-desc">
+                Punya ide tema khusus (misal: Tayo, Spiderman) atau materi belajar spesifik? 
+                Kami buatkan spesial agar si kecil makin semangat!
+            </p>
+            
+            <div class="custom-form">
+                <div>
+                    <label class="form-label">Jenis Worksheet</label>
+                    <select id="reqType" class="form-input" onchange="toggleCustomInput()">
+                        <option value="Coloring">Coloring (Mewarnai)</option>
+                        <option value="Tracing Number">Tracing Angka</option>
+                        <option value="Tracing Alphabet">Tracing Huruf</option>
+                        <option value="Custom">Lainnya (Isi sendiri)...</option>
+                    </select>
+                    <input type="text" id="reqTypeOther" class="form-input hidden-input" placeholder="Tulis jenis worksheet yang diinginkan...">
+                </div>
+                <div>
+                    <label class="form-label">Tema / Karakter (Opsional)</label>
+                    <input type="text" id="reqTheme" class="form-input" placeholder="Contoh: Pokemon, Upin Ipin...">
+                </div>
+                <button class="btn btn-custom" style="width:100%; justify-content:center;" onclick="sendCustomRequest()">
+                    <i class="fas fa-magic"></i>&nbsp; Request via WA
+                </button>
+            </div>
+        </div>
+    </section>
 
-    <div class="cart-float" id="floatingCart" onclick="toggleModal(true)">
+    <div class="cart-float" id="floatingCart" onclick="toggleCartModal(true)">
         <i class="fas fa-shopping-bag"></i>
         <span>Keranjang</span>
         <div class="cart-badge" id="cartCount">0</div>
     </div>
 
+    <div class="modal-wrap" id="previewModal">
+        <div class="modal-box">
+            <button onclick="closePreview()" style="position: absolute; top: 15px; right: 15px; font-size: 1.5rem; background:none; color: #999; z-index:10;">&times;</button>
+            <div id="previewContent"></div>
+        </div>
+    </div>
+
     <div class="modal-wrap" id="cartModal">
         <div class="modal-box">
-            <button onclick="toggleModal(false)" style="position: absolute; top: 15px; right: 15px; font-size: 1.5rem; background:none; color: #999;">&times;</button>
-            
-            <h3 style="margin-bottom: 20px; font-size: 1.5rem;">Tas Belanja 🎒</h3>
-            
-            <div id="cartList" style="max-height: 300px; overflow-y: auto;">
-                </div>
-            
-            <div style="margin-top: 20px; border-top: 2px solid #eee; padding-top: 15px;">
-                <div style="display: flex; justify-content: space-between; font-weight: 800; font-size: 1.2rem; margin-bottom: 15px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3 style="font-size:1.4rem;">Tas Belanja 🎒</h3>
+                <button onclick="toggleCartModal(false)" style="font-size:1.5rem; background:none; color:#999;">&times;</button>
+            </div>
+            <div id="cartList" style="max-height:280px; overflow-y:auto;"></div>
+            <div style="margin-top:15px; border-top:2px dashed #eee; padding-top:15px;">
+                <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.1rem; margin-bottom:15px;">
                     <span>Total</span>
                     <span id="cartTotal">Rp 0</span>
                 </div>
-                <button class="btn btn-whatsapp" onclick="sendToWA()">
-                    <i class="fab fa-whatsapp"></i>&nbsp; Pesan via WhatsApp
+                <button class="btn btn-whatsapp" onclick="checkoutWA()">
+                    <i class="fab fa-whatsapp"></i>&nbsp; Lanjut ke WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
     <script>
-        // --- DATA & CONFIG ---
-        const NO_WA = "62812345678"; // GANTI NO WA DISINI
+        // CONFIG
+        const NO_WA = "62812345678"; // GANTI NOMOR WA ANDA
 
-        // Gunakan link gambar asli Anda nanti.
+        // DATA
         const products = [
-            { id: 1, name: "Paket Pintar Menulis", type: "boy", price: 35000, cat: "Tracing", img: "https://placehold.co/400x300/4FB0E6/FFF?text=Tracing+Boy" },
-            { id: 2, name: "Paket Pintar Menulis", type: "girl", price: 35000, cat: "Tracing", img: "https://placehold.co/400x300/FF9F9F/FFF?text=Tracing+Girl" },
-            { id: 3, name: "Petualangan Angka", type: "boy", price: 40000, cat: "Matematika", img: "https://placehold.co/400x300/4FB0E6/FFF?text=Math+Boy" },
-            { id: 4, name: "Petualangan Angka", type: "girl", price: 40000, cat: "Matematika", img: "https://placehold.co/400x300/FF9F9F/FFF?text=Math+Girl" },
-            { id: 5, name: "Jago Mewarnai", type: "boy", price: 25000, cat: "Kreativitas", img: "https://placehold.co/400x300/4FB0E6/FFF?text=Color+Boy" },
-            { id: 6, name: "Jago Mewarnai", type: "girl", price: 25000, cat: "Kreativitas", img: "https://placehold.co/400x300/FF9F9F/FFF?text=Color+Girl" }
+            { 
+                id: 101, 
+                name: "Roblox Adventure Coloring", 
+                category: "coloring", 
+                theme: "roblox", 
+                price: 15000, 
+                img: "https://placehold.co/400x300/E74C3C/FFF?text=Roblox+Coloring",
+                desc: "50 Halaman mewarnai karakter Roblox yang seru untuk melatih kreativitas anak." 
+            },
+            { 
+                id: 102, 
+                name: "Roblox Number Tracing", 
+                category: "tracing", 
+                theme: "roblox", 
+                price: 20000, 
+                img: "https://placehold.co/400x300/C0392B/FFF?text=Roblox+Tracing",
+                desc: "Belajar menulis angka 1-20 ditemani karakter Roblox. Cocok untuk usia 4-6 tahun." 
+            },
+            { 
+                id: 201, 
+                name: "Frozen Magic Coloring", 
+                category: "coloring", 
+                theme: "frozen", 
+                price: 15000, 
+                img: "https://placehold.co/400x300/3498DB/FFF?text=Frozen+Coloring",
+                desc: "Mewarnai Elsa, Anna, dan Olaf. Halaman tebal dan garis jelas." 
+            },
+            { 
+                id: 202, 
+                name: "Frozen Letter Tracing", 
+                category: "tracing", 
+                theme: "frozen", 
+                price: 20000, 
+                img: "https://placehold.co/400x300/2980B9/FFF?text=Frozen+Tracing",
+                desc: "Latihan menulis huruf A-Z dengan tema istana es Frozen." 
+            },
+            { 
+                id: 301, 
+                name: "Cerita Nusantara Coloring", 
+                category: "coloring", 
+                theme: "nusantara", 
+                price: 12000, 
+                img: "https://placehold.co/400x300/F1C40F/333?text=Nusantara+Coloring",
+                desc: "Mengenal budaya Indonesia lewat mewarnai baju adat dan rumah adat." 
+            },
+            { 
+                id: 302, 
+                name: "Cerita Nusantara Tracing", 
+                category: "tracing", 
+                theme: "nusantara", 
+                price: 18000, 
+                img: "https://placehold.co/400x300/F39C12/333?text=Nusantara+Tracing",
+                desc: "Tracing garis putus-putus membentuk pola batik dan wayang sederhana." 
+            }
         ];
 
         let cart = [];
 
-        // --- INIT ---
-        window.onload = () => {
-            renderGrid(products);
-        };
+        window.onload = () => { renderGrid(products); };
 
-        function scrollToCatalog() {
-            document.getElementById('catalog').scrollIntoView({behavior: 'smooth'});
-        }
-
-        // --- RENDER LOGIC ---
         function renderGrid(data) {
             const container = document.getElementById('gridContainer');
             container.innerHTML = '';
-
+            
             data.forEach(p => {
-                // Styling based on gender
-                let badgeColor = p.type === 'boy' ? '#4FB0E6' : '#FF9F9F';
-                let label = p.type === 'boy' ? 'BOY' : 'GIRL';
+                let tagClass = 'tag-roblox';
+                if(p.theme === 'frozen') tagClass = 'tag-frozen';
+                if(p.theme === 'nusantara') tagClass = 'tag-nusantara';
 
                 container.innerHTML += `
-                    <div class="product-card">
+                    <div class="product-card" onclick="openPreview(${p.id})">
                         <div class="tape"></div>
                         <div class="card-image-wrapper">
-                            <span class="tag-variant" style="background:${badgeColor}">${label}</span>
+                            <span class="tag-variant ${tagClass}">${p.theme.toUpperCase()}</span>
                             <img src="${p.img}" alt="${p.name}">
                         </div>
                         <div class="card-content">
-                            <span class="card-cat">${p.cat}</span>
+                            <span class="card-cat">${p.category}</span>
                             <h3 class="card-title">${p.name}</h3>
                             <div class="card-action">
                                 <span class="price">Rp ${p.price.toLocaleString('id-ID')}</span>
-                                <button class="btn-add" onclick="addToCart(${p.id})">
+                                <button class="btn-add-mini" onclick="event.stopPropagation(); addToCart(${p.id})">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
-        function filterData(type, btn) {
-            // Reset button styles
-            document.querySelectorAll('.toggle-btn').forEach(b => {
-                b.className = 'toggle-btn';
-            });
-            
-            // Set active style
-            if(type === 'all') btn.classList.add('active-all');
-            else if(type === 'boy') btn.classList.add('active-boy');
-            else btn.classList.add('active-girl');
+        function filterData(cat, btn) {
+            document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if(cat === 'all') renderGrid(products);
+            else renderGrid(products.filter(p => p.category === cat));
+        }
 
-            // Filter logic
-            if(type === 'all') renderGrid(products);
-            else renderGrid(products.filter(p => p.type === type));
+        // --- PREVIEW LOGIC ---
+        function openPreview(id) {
+            const p = products.find(i => i.id === id);
+            const modal = document.getElementById('previewModal');
+            const content = document.getElementById('previewContent');
+
+            let tagColor = '#E74C3C';
+            if(p.theme === 'frozen') tagColor = '#3498DB';
+            if(p.theme === 'nusantara') tagColor = '#F1C40F';
+
+            content.innerHTML = `
+                <img src="${p.img}" class="preview-img">
+                <div class="preview-details">
+                    <span class="preview-tag" style="background:${tagColor}">${p.theme.toUpperCase()}</span>
+                    <h3>${p.name}</h3>
+                    <h2 style="color:var(--orange); margin-bottom:15px;">Rp ${p.price.toLocaleString('id-ID')}</h2>
+                    <p class="preview-desc">${p.desc}</p>
+                    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="addToCart(${p.id}); closePreview()">
+                        <i class="fas fa-cart-plus"></i>&nbsp; Tambah ke Keranjang
+                    </button>
+                </div>
+            `;
+            modal.classList.add('show');
+        }
+
+        function closePreview() {
+            document.getElementById('previewModal').classList.remove('show');
         }
 
         // --- CART LOGIC ---
         function addToCart(id) {
             const product = products.find(p => p.id === id);
             const exist = cart.find(c => c.id === id);
-
-            if(exist) exist.qty++;
-            else cart.push({...product, qty: 1});
-
+            if(exist) exist.qty++; else cart.push({...product, qty: 1});
             updateCartUI();
             
-            // Feedback Visual
             const floatBtn = document.getElementById('floatingCart');
-            floatBtn.classList.add('visible');
             floatBtn.style.transform = "scale(1.2)";
             setTimeout(() => floatBtn.style.transform = "scale(1)", 200);
         }
 
         function updateCartUI() {
-            const totalQty = cart.reduce((a,b) => a + b.qty, 0);
-            document.getElementById('cartCount').innerText = totalQty;
-            
-            if(totalQty > 0) document.getElementById('floatingCart').classList.add('visible');
+            const qty = cart.reduce((a,b) => a+b.qty, 0);
+            document.getElementById('cartCount').innerText = qty;
+            if(qty > 0) document.getElementById('floatingCart').classList.add('visible');
         }
 
-        function toggleModal(show) {
-            const modal = document.getElementById('cartModal');
+        function toggleCartModal(show) {
+            const m = document.getElementById('cartModal');
+            if(show) {
+                m.classList.add('show');
+                renderCartList();
+            } else {
+                m.classList.remove('show');
+            }
+        }
+
+        function renderCartList() {
             const list = document.getElementById('cartList');
             const totalEl = document.getElementById('cartTotal');
-
-            if(show) {
-                modal.classList.add('show');
-                
-                // Render List
-                if(cart.length === 0) {
-                    list.innerHTML = "<p style='text-align:center; color:#999; margin-top:20px;'>Belum ada worksheet yang dipilih nih bun.</p>";
-                    totalEl.innerText = "Rp 0";
-                    return;
-                }
-
-                let html = '';
-                let grandTotal = 0;
-                
-                cart.forEach((item, idx) => {
-                    let sub = item.price * item.qty;
-                    grandTotal += sub;
-                    html += `
-                        <div class="cart-item">
-                            <div>
-                                <h4 style="font-size:1rem; margin-bottom:5px;">${item.name} (${item.type === 'boy'?'👦':'👧'})</h4>
-                                <small style="color:#888;">${item.qty} x Rp ${item.price.toLocaleString('id-ID')}</small>
-                            </div>
-                            <button onclick="removeItem(${item.id})" style="color:#ff6b6b; background:none; font-weight:bold;">Hapus</button>
-                        </div>
-                    `;
-                });
-                
-                list.innerHTML = html;
-                totalEl.innerText = "Rp " + grandTotal.toLocaleString('id-ID');
-
-            } else {
-                modal.classList.remove('show');
+            if(cart.length === 0) {
+                list.innerHTML = "<p style='text-align:center;color:#999;margin-top:20px'>Keranjang kosong.</p>";
+                totalEl.innerText = "Rp 0";
+                return;
             }
+            let html = ''; let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.qty;
+                html += `
+                <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed #eee">
+                    <div>
+                        <div style="font-weight:bold;font-size:0.95rem">${item.name}</div>
+                        <small style="color:#888">${item.qty} x Rp ${item.price.toLocaleString('id-ID')}</small>
+                    </div>
+                    <button onclick="removeItem(${item.id})" style="color:#ff6b6b;background:none"><i class="fas fa-trash"></i></button>
+                </div>`;
+            });
+            list.innerHTML = html;
+            totalEl.innerText = "Rp " + total.toLocaleString('id-ID');
         }
 
         function removeItem(id) {
             cart = cart.filter(c => c.id !== id);
-            updateCartUI();
-            toggleModal(true); // Re-render modal
+            updateCartUI(); renderCartList();
             if(cart.length === 0) document.getElementById('floatingCart').classList.remove('visible');
         }
 
-        function sendToWA() {
+        // --- COPYWRITING BARU (CHECKOUT WA) ---
+        function checkoutWA() {
             if(cart.length === 0) return;
-
-            let msg = "Halo Admin ARM Study Co! Saya mau pesan worksheet ini untuk si kecil:%0A%0A";
+            
+            let msg = "Halo Kak Admin ARM! 👋%0A%0ASaya mau pesan worksheet pintar ini buat si kecil belajar di rumah:%0A";
             let total = 0;
-
+            
             cart.forEach((item, i) => {
-                let sub = item.price * item.qty;
-                total += sub;
-                msg += `${i+1}. ${item.name} (${item.type}) - ${item.qty} pcs%0A`;
+                total += item.price * item.qty;
+                msg += `${i+1}. ${item.name} (${item.qty}x) - Rp ${(item.price * item.qty).toLocaleString('id-ID')}%0A`;
             });
-
-            msg += `%0A*Total: Rp ${total.toLocaleString('id-ID')}*`;
-            msg += `%0AMohon info pembayarannya ya. Terima Kasih!`;
-
+            
+            msg += `%0A*Total Order: Rp ${total.toLocaleString('id-ID')}*%0A`;
+            msg += `%0AMohon info rekeningnya ya Kak. Mau amankan paket hemat ini biar si kecil makin pintar! Terima kasih 😊`;
+            
             window.open(`https://wa.me/${NO_WA}?text=${msg}`, '_blank');
+        }
+
+        // --- CUSTOM REQUEST LOGIC ---
+        function toggleCustomInput() {
+            const select = document.getElementById('reqType');
+            const otherInput = document.getElementById('reqTypeOther');
+            
+            if (select.value === 'Custom') {
+                otherInput.style.display = 'block';
+                otherInput.focus();
+            } else {
+                otherInput.style.display = 'none';
+            }
+        }
+
+        function sendCustomRequest() {
+            const select = document.getElementById('reqType');
+            let type = select.value;
+            
+            if (type === 'Custom') {
+                const otherVal = document.getElementById('reqTypeOther').value;
+                type = otherVal ? otherVal : "Custom Request";
+            }
+            
+            const theme = document.getElementById('reqTheme').value || "Bebas";
+            
+            // COPYWRITING CUSTOM REQUEST
+            const msg = `Halo Kak Admin! 👋%0A%0ASaya lagi cari worksheet khusus tapi belum nemu di katalog. Bisa bantu buatkan?%0A%0A📄 Jenis: ${type}%0A🎨 Tema/Karakter: ${theme}%0A%0ABoleh info estimasi harganya Kak? Makasih ya!`;
+            
+            window.open(`https://wa.me/${NO_WA}?text=${msg}`, '_blank');
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('cartModal')) toggleCartModal(false);
+            if (event.target == document.getElementById('previewModal')) closePreview();
         }
     </script>
 </body>
